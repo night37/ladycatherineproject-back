@@ -1,0 +1,45 @@
+CREATE DATABASE IF NOT EXISTS english_platform CHARSET utf8mb4;
+
+USE english_platform;
+
+CREATE TABLE IF NOT EXISTS role(
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+name VARCHAR(50) NOT NULL
+)ENGINE=innoDB;
+
+CREATE TABLE IF NOT EXISTS user(
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+email VARCHAR(150) NOT NULL UNIQUE,
+pseudo VARCHAR(50) NOT NULL,
+`password` VARCHAR(100) NOT NULL,
+profile_image VARCHAR(150) NOT NULL,
+CONSTRAINT fk_role FOREIGN KEY (id) REFERENCES role(id)
+)ENGINE=innoDB;
+
+CREATE TABLE IF NOT EXISTS publication(
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+lesson_difficulty VARCHAR(50) NOT NULL UNIQUE,
+type_of_publication BOOL NOT NULL,
+published_at DATETIME,
+updated_at DATETIME,
+images VARCHAR(50),
+`status` BOOL NOT NULL,
+abstract VARCHAR(100) NOT NULL,
+title VARCHAR(50) NOT NULL,
+content TEXT,
+CONSTRAINT fk_user FOREIGN KEY (id) REFERENCES user(id)
+)ENGINE=innoDB;
+
+CREATE TABLE IF NOT EXISTS tags(
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+name VARCHAR(50) NOT NULL
+)ENGINE=innoDB;
+
+CREATE TABLE IF NOT EXISTS have(
+id_publication INT NOT NULL,
+id_tags INT NOT NULL,
+PRIMARY KEY (id_publication, id_tags),
+CONSTRAINT fk_have_publication FOREIGN KEY (id_publication) REFERENCES publication(id),
+CONSTRAINT fk_have_tags FOREIGN KEY (id_tags) REFERENCES tags(id)
+)ENGINE=innoDB;
+
