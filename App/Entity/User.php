@@ -12,36 +12,25 @@ class User extends Entity
     /** Bloc attributs  **/
     private ?int $id;
     #[NotBlank]
-    private ?string $lastname;
-    #[NotBlank]
-    private ?string $firstname;
-    #[NotBlank]
     private ?string $pseudo;
-    #[NotBlank]
     #[Email]
     private ?string $email;
     #[NotBlank]
     private ?string $password;
     private ?string $imgProfil;
-    private ?array $grants;
-    private ?bool $status;
+    #[NotBlank]
+    private Role $role;
 
     /** Bloc constructeur   **/
 
     public function __construct(
-        ?string $firstname = null,
-        ?string $lastname = null,
         ?string $email = null,
         ?string $password = null,
+        Role $role
     ) {
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
         $this->email = $email;
         $this->password = $password;
-        $this->pseudo = null;
-        $this->grants = [];
-        $this->status = null;
-        $this->id = null;
+        $this->$role = $role;
     }
 
     /** Bloc Getters et Setters   **/
@@ -54,26 +43,6 @@ class User extends Entity
     public function setId(?int $id): void
     {
         $this->id = $id;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname): void
-    {
-        $this->firstname;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(?string $lastname): void
-    {
-        $this->lastname = $lastname;
     }
 
     public function getPseudo(): ?string
@@ -115,37 +84,12 @@ class User extends Entity
     {
         $this->imgProfil = $imgProfil;
     }
-
-    public function getStatus(): bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?bool $status): void
-    {
-        $this->status = $status;
-    }
-
     /** Bloc gestion des grants   **/
     /**
      * Méthode pour récupérer les grants
      * @return array|null retourne la liste des grants
      */
-    public function getGrants(): ?array
-    {
-        return $this->grants;
-    }
 
-    /**
-     * Méthode pour hydrater les grants
-     * @param string $grants liste des grants séparés par des virgules
-     * @return void 
-     */
-    public function setGrants(?string $grants)
-    {
-        $grants = explode(',', $grants);
-        $this->grants = $grants;
-    }
     /**
      * Méthode pour ajouter un grant
      * @param string $grant le grant à ajouter
