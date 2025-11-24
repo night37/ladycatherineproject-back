@@ -58,11 +58,42 @@ class PublicationRepository extends AbstractRepository
         return $pubs;
     }
 
-    public function savePublication(Publication $publication):void {
-        $request = "INSERT INTO publication (lesson_difficulty, type_of_publication, published_at, updated_at, images, 'status',' title, content, id_user) VALUES (?,?,?,?,?,?,?,?,?)";
-        //2 préparation de la requête
+    public function assocTagsWithPub($pubId,  array $tags)
+    {
+
+        $request = "INSERT INTO publication_tags (id_publication, id_tag) VALUES (?, ?)";
         $req = $this->connexion->prepare($request);
-        //3 assigner les paramètres
+
+        foreach ($tags as $tagId) {
+            $req->execute([$pubId, $tagId]);
+        }
+    }
+    public function getOrCreateTag(string $name): int
+    {
+        // Vérifier si le tag existe
+        $request = "SELECT id FROM tags WHERE name = ?";
+        $req = $this->connexion->prepare($request);
+        $req->bindParam(1, $name, \PDO::PARAM_STR);
+        $req->execute();
+        $tag = $req->fetch();
+
+        if ($tag) {
+            return $tag["id"];
+        }
+
+        // Sinon, l'insérer
+        $insert = $this->connexion->prepare("INSERT INTO tags (name) VALUES (?)");
+        $insert->execute([$name]);
+
+        return $this->connexion->lastInsertId();
+    }
+
+    public function savePublication(Publication $publication): void
+    {
+        $request = "INSERT INTO publication (lesson_difficulty, type_of_publication, published_at, updated_at, images, 'status',' title, content, id_user) VALUES (?,?,?,?,?,?,?,?,?)";
+
+        $req = $this->connexion->prepare($request);
+
         $req->bindValue(1, $publication->getDifficulty(), \PDO::PARAM_STR);
         $req->bindValue(2, $publication->getTypeOfPublication(), \PDO::PARAM_STR);
         $req->bindValue(3, $publication->getPublishedAt(), \PDO::PARAM_STR);
@@ -71,6 +102,11 @@ class PublicationRepository extends AbstractRepository
         $req->bindValue(6, $publication->getStatus(), \PDO::PARAM_BOOL);
         $req->bindValue(7, $publication->getTitle(), \PDO::PARAM_STR);
         $req->bindValue(8, $publication->getContent(), \PDO::PARAM_STR);
+        $req->bindValue(9, $publication->$_SESSION["user"], \PDO::PARAM_INT);
         $req->execute();
+
+        $pubId = $this->connexion->lastInsertId();
+        $name = $this->getTag();
+        $this->assocTagsWithPub($pubId, $this->getOrCreateTag($name));
     }
 }
