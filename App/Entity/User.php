@@ -84,11 +84,13 @@ class User extends Entity
         $this->imgProfil = $imgProfil;
     }
 
-    public function getRole(): Role {
+    public function getRole(): Role
+    {
         return $this->role;
     }
 
-    public function setRole(Role $role): void {
+    public function setRole(Role $role): void
+    {
         $this->role = $role;
     }
 
