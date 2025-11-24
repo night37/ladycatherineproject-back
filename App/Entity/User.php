@@ -94,10 +94,6 @@ class User extends Entity
         $this->role = $role;
     }
 
-
-
-
-
     /** Bloc méthodes   **/
     /**
      * Méthode pour hasher le password
