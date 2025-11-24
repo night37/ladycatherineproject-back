@@ -18,19 +18,18 @@ class User extends Entity
     #[NotBlank]
     private ?string $password;
     private ?string $imgProfil;
-    #[NotBlank]
-    private Role $role;
+
+    private ?Role $role;
 
     /** Bloc constructeur   **/
 
     public function __construct(
         ?string $email = null,
         ?string $password = null,
-        Role $role
+
     ) {
         $this->email = $email;
         $this->password = $password;
-        $this->$role = $role;
     }
 
     /** Bloc Getters et Setters   **/
@@ -84,32 +83,20 @@ class User extends Entity
     {
         $this->imgProfil = $imgProfil;
     }
-    /** Bloc gestion des grants   **/
-    /**
-     * Méthode pour récupérer les grants
-     * @return array|null retourne la liste des grants
-     */
 
-    /**
-     * Méthode pour ajouter un grant
-     * @param string $grant le grant à ajouter
-     * @return void
-     */
-    public function addGrant(?string $grant): void
+    public function getRole(): Role
     {
-        $this->grants[] = $grant;
+        return $this->role;
     }
 
-    /**
-     * Méthode pour supprimer un grant
-     * @param string $grant le grant à supprimer
-     * @return void
-     */
-    public function removeGrant(?string $grant): void
+    public function setRole(Role $role): void
     {
-        unset($this->grants[array_search($grant, $this->grants)]);
-        sort($this->grants);
+        $this->role = $role;
     }
+
+
+
+
 
     /** Bloc méthodes   **/
     /**

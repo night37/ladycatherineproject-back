@@ -35,7 +35,7 @@ id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 name VARCHAR(50) NOT NULL
 )ENGINE=innoDB;
 
-CREATE TABLE IF NOT EXISTS have(
+CREATE TABLE IF NOT EXISTS publication_tags(
 id_publication INT NOT NULL,
 id_tags INT NOT NULL,
 PRIMARY KEY (id_publication, id_tags),
