@@ -15,8 +15,8 @@ class User extends Entity
     private ?string $email;
     #[NotBlank]
     private string $password;
-    private ?string $profiles_images;
-    private string $pseudo;
+    private ?string $profiles_image = "";
+    private string $pseudo = "";
 
     /** Bloc constructeur   **/
 
@@ -66,34 +66,34 @@ class User extends Entity
 
     public function getProfiles_images(): ?string
     {
-        return $this->profiles_images;
+        return $this->profiles_image;
     }
 
-    public function setProfiles_images(?string $profiles_images): void
+    public function setProfiles_images(?string $profiles_image): void
     {
-        $this->profiles_images = $profiles_images;
+        $this->profiles_image = $profiles_image;
     }
 
 
 
     /** Bloc méthodes   **/
     /**
- * Méthode pour hasher le password
- * @return void
- */
+     * Méthode pour hasher le password
+     * @return void
+     */
 
     /**
- * Méthode pour vérifier si le hash password est valide
- * @param string $plainPassword mot de passe en clair
- * @return bool true si valide false si invalide
- */
+     * Méthode pour vérifier si le hash password est valide
+     * @param string $plainPassword mot de passe en clair
+     * @return bool true si valide false si invalide
+     */
 
 
     /**
- * Méthode pour hydrater un Objet User à partir d'un tableau de données
- * @param array $userData (tableau de données d'un User)
- * @return User retourne un Objet User
- */
+     * Méthode pour hydrater un Objet User à partir d'un tableau de données
+     * @param array $userData (tableau de données d'un User)
+     * @return User retourne un Objet User
+     */
     // public static function hydrateUser(array $userData): User
     // {
     //     $user = new User(
@@ -117,9 +117,9 @@ class User extends Entity
     // }
 
     /**
- * Méthode pour convertir un Objet User en tableau de données
- * @return array retourne un tableau de données d'un User
- */
+     * Méthode pour convertir un Objet User en tableau de données
+     * @return array retourne un tableau de données d'un User
+     */
     // public function toArray(): array
     // {
     //     $userData =  [];
@@ -132,4 +132,40 @@ class User extends Entity
     //     }
     //     return $userData;
     // }
+
+    /**
+     * Get the value of pseudo
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * Set the value of pseudo
+     *
+     * @return  self
+     */
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+
+    public static function hydrateUser(array $userData): User
+    {
+        $user = new User(
+            $userData["email"] ?? null,
+            $userData["pseudo"] ?? null,
+            $userData["password"] ?? null,
+            $userData["profile_image"] ?? null,
+            $userData["role_id"] ?? null
+        );
+
+        $user->setId($userData["id"] ?? null);
+        // dd($user);
+        return $user;
+    }
 }

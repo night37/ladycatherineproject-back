@@ -15,30 +15,32 @@ class SecurityController extends AbstractController
     }
 
     //Méthode login (se connecter)
-    public function login() {
+    public function login()
+    {
         //
 
         if ($this->isFormSubmitted($_POST)) {
             $data["message"] = $this->securityService->connexion($_POST);
         }
 
-        $this->render('login','connexion',$data??[]);
+        $this->render('login', 'connexion', $data ?? []);
     }
 
     //Méthode logout (se déconnecter)
-    public function logout() {
+    public function logout()
+    {
         $this->securityService->deconnexion();
     }
 
     //Méthode register (créer un compte User)
-    public function register() {
+    public function register()
+    {
         //Test si le formulaire est submit
         if ($this->isFormSubmitted($_POST)) {
             //Appel de la logique du service
             $data["message"] = $this->securityService->addUser($_POST);
         }
-        
         //rendu de la vue
-        $this->render('register','register', $data ?? []);
+        $this->render('register', 'register', $data ?? []);
     }
 }

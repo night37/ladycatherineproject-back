@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-abstract class AbstractPublication{
-    protected int $id_publication;
-    protected string $published_at;
-    protected string $updated_at;
+abstract class AbstractPublication
+{
+    protected int $idPublication;
+    protected string $publishedAt;
+    protected string $updatedAt;
     protected string $image;
     protected bool $status;
     protected string $abstract;
@@ -17,7 +18,8 @@ abstract class AbstractPublication{
      *
      * @return int
      */
-    public function getIdPublication(): int {
+    public function getIdPublication(): int
+    {
         return $this->id_publication;
     }
 
@@ -28,7 +30,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setIdPublication(int $id_publication): self {
+    public function setIdPublication(int $id_publication): self
+    {
         $this->id_publication = $id_publication;
         return $this;
     }
@@ -38,7 +41,8 @@ abstract class AbstractPublication{
      *
      * @return string
      */
-    public function getPublishedAt(): string {
+    public function getPublishedAt(): string
+    {
         return $this->published_at;
     }
 
@@ -49,7 +53,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setPublishedAt(string $published_at): self {
+    public function setPublishedAt(string $published_at): self
+    {
         $this->published_at = $published_at;
         return $this;
     }
@@ -59,7 +64,8 @@ abstract class AbstractPublication{
      *
      * @return string
      */
-    public function getUpdatedAt(): string {
+    public function getUpdatedAt(): string
+    {
         return $this->updated_at;
     }
 
@@ -70,7 +76,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setUpdatedAt(string $updated_at): self {
+    public function setUpdatedAt(string $updated_at): self
+    {
         $this->updated_at = $updated_at;
         return $this;
     }
@@ -80,7 +87,8 @@ abstract class AbstractPublication{
      *
      * @return string
      */
-    public function getImage(): string {
+    public function getImage(): string
+    {
         return $this->image;
     }
 
@@ -91,7 +99,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setImage(string $image): self {
+    public function setImage(string $image): self
+    {
         $this->image = $image;
         return $this;
     }
@@ -101,7 +110,8 @@ abstract class AbstractPublication{
      *
      * @return bool
      */
-    public function getStatus(): bool {
+    public function getStatus(): bool
+    {
         return $this->status;
     }
 
@@ -112,7 +122,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setStatus(bool $status): self {
+    public function setStatus(bool $status): self
+    {
         $this->status = $status;
         return $this;
     }
@@ -122,7 +133,8 @@ abstract class AbstractPublication{
      *
      * @return string
      */
-    public function getAbstract(): string {
+    public function getAbstract(): string
+    {
         return $this->abstract;
     }
 
@@ -133,7 +145,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setAbstract(string $abstract): self {
+    public function setAbstract(string $abstract): self
+    {
         $this->abstract = $abstract;
         return $this;
     }
@@ -143,7 +156,8 @@ abstract class AbstractPublication{
      *
      * @return string
      */
-    public function getTitle(): string {
+    public function getTitle(): string
+    {
         return $this->title;
     }
 
@@ -154,7 +168,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setTitle(string $title): self {
+    public function setTitle(string $title): self
+    {
         $this->title = $title;
         return $this;
     }
@@ -164,7 +179,8 @@ abstract class AbstractPublication{
      *
      * @return string
      */
-    public function getContent(): string {
+    public function getContent(): string
+    {
         return $this->content;
     }
 
@@ -175,7 +191,8 @@ abstract class AbstractPublication{
      *
      * @return self
      */
-    public function setContent(string $content): self {
+    public function setContent(string $content): self
+    {
         $this->content = $content;
         return $this;
     }

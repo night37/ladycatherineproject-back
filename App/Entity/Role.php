@@ -3,9 +3,6 @@
 namespace App\Entity;
 
 use App\Entity\Entity;
-use Mithridatem\Validation\Attributes\Email;
-use Mithridatem\Validation\Attributes\NotBlank;
-use Mithridatem\Validation\Attributes\Pattern;
 
 class Role extends Entity
 {
