@@ -13,7 +13,8 @@ email VARCHAR(150) NOT NULL UNIQUE,
 pseudo VARCHAR(50) NOT NULL,
 `password` VARCHAR(100) NOT NULL,
 profile_image VARCHAR(150) NOT NULL,
-CONSTRAINT fk_role FOREIGN KEY (id) REFERENCES role(id)
+role_id INT NOT NULL, 
+CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id)
 )ENGINE=innoDB;
 
 CREATE TABLE IF NOT EXISTS publication(

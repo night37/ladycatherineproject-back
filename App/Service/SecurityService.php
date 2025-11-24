@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Repository\UserRepository;
 use App\Entity\User;
+
 use Mithridatem\Validation\Validator;
 use Mithridatem\Validation\Exception\ValidationException;
 use App\Utils\StringTools;
@@ -71,12 +72,12 @@ class SecurityService
 
         //Récupére l'objet User
         $user = $this->userRepository->findUserByEmail($post["email"]);
-        
+
         //Si le compte n'existe pas
         if (!isset($user)) {
             return "Les informations de connexion email et ou password sont invalides";
         }
-        
+
         //test si les champs sont valides
         try {
             $this->validator->validate($user);
@@ -91,11 +92,11 @@ class SecurityService
         }
 
         $this->onAuthentificationFailed();
-        
+
         return "Les informations de connexion email et ou password ne sont pas correctes";
     }
-    
-    private function onAuthentificationSuccess(User $user): void 
+
+    private function onAuthentificationSuccess(User $user): void
     {
         //Création des super globales de session
         $_SESSION["email"] = $user->getEmail();
@@ -113,7 +114,8 @@ class SecurityService
     }
 
     //Logique métier de la déconnexion
-    public function deconnexion() {
+    public function deconnexion()
+    {
         session_destroy();
         header("Location:/");
     }
