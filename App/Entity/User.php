@@ -10,16 +10,13 @@ use Mithridatem\Validation\Attributes\Pattern;
 class User extends Entity
 {
     /** Bloc attributs  **/
-    private ?int $id;
-    #[NotBlank]
-    private ?string $pseudo;
+    private ?int $id_user;
     #[Email]
     private ?string $email;
     #[NotBlank]
-    private ?string $password;
-    private ?string $imgProfil;
-
-    private ?Role $role;
+    private string $password;
+    private ?string $profiles_images;
+    private string $pseudo;
 
     /** Bloc constructeur   **/
 
@@ -28,41 +25,34 @@ class User extends Entity
         ?string $password = null,
 
     ) {
+
         $this->email = $email;
         $this->password = $password;
     }
+
 
     /** Bloc Getters et Setters   **/
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->id_user;
     }
 
-    public function setId(?int $id): void
+    public function setId(?int $id_user): void
     {
-        $this->id = $id;
+        $this->id_user = $id_user;
     }
 
-    public function getPseudo(): ?string
+    public function getEmail(): ?string
     {
         return $this->pseudo;
-    }
-
-    public function setPseudo(?string $pseudo): void
-    {
-        $this->pseudo = $pseudo;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
+
 
     public function getPassword(): string
     {
@@ -74,87 +64,72 @@ class User extends Entity
         $this->password = $password;
     }
 
-    public function getImgProfil(): ?string
+    public function getProfiles_images(): ?string
     {
-        return $this->imgProfil;
+        return $this->profiles_images;
     }
 
-    public function setImgProfil(?string $imgProfil): void
+    public function setProfiles_images(?string $profiles_images): void
     {
-        $this->imgProfil = $imgProfil;
+        $this->profiles_images = $profiles_images;
     }
 
-    public function getRole(): Role
-    {
-        return $this->role;
-    }
 
-    public function setRole(Role $role): void
-    {
-        $this->role = $role;
-    }
 
     /** Bloc méthodes   **/
     /**
-     * Méthode pour hasher le password
-     * @return void
-     */
-    public function hashPassword(): void
-    {
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-    }
+ * Méthode pour hasher le password
+ * @return void
+ */
 
     /**
-     * Méthode pour vérifier si le hash password est valide
-     * @param string $plainPassword mot de passe en clair
-     * @return bool true si valide false si invalide
-     */
-    public function verifPassword(string $plainPassword): bool
-    {
-        return password_verify($plainPassword, $this->password);
-    }
+ * Méthode pour vérifier si le hash password est valide
+ * @param string $plainPassword mot de passe en clair
+ * @return bool true si valide false si invalide
+ */
+
 
     /**
-     * Méthode pour hydrater un Objet User à partir d'un tableau de données
-     * @param array $userData (tableau de données d'un User)
-     * @return User retourne un Objet User
-     */
-    public static function hydrateUser(array $userData): User
-    {
-        $user = new User(
-            $userData["firstname"] ?? null,
-            $userData["lastname"] ?? null,
-            $userData["email"] ?? null,
-            $userData["password"] ?? null
-        );
+ * Méthode pour hydrater un Objet User à partir d'un tableau de données
+ * @param array $userData (tableau de données d'un User)
+ * @return User retourne un Objet User
+ */
+    // public static function hydrateUser(array $userData): User
+    // {
+    //     $user = new User(
+    //         $userData["firstname"] ?? null,
+    //         $userData["lastname"] ?? null,
+    //         $userData["email"] ?? null,
+    //         $userData["password"] ?? null
+    //     );
 
-        $user->setId($userData["id"] ?? null);
-        $user->setPseudo($userData["pseudo"] ?? "");
-        $user->setImgProfil($userData["imgProfil"] ?? "");
+    //     $user->setId($userData["id"] ?? null);
+    //     $user->setPseudo($userData["pseudo"] ?? "");
+    //     $user->setImgProfil($userData["imgProfil"] ?? "");
 
-        if (isset($userData["grants"]) && gettype($userData["grants"]) === "string") {
-            $user->setGrants($userData["grants"]);
-        }
+    //     if (isset($userData["grants"]) && gettype($userData["grants"]) === "string") {
+    //         $user->setGrants($userData["grants"]);
+    //     }
 
-        $user->setStatus($userData["status"] ?? false);
+    //     $user->setStatus($userData["status"] ?? false);
 
-        return $user;
-    }
+    //     return $user;
+    // }
 
     /**
-     * Méthode pour convertir un Objet User en tableau de données
-     * @return array retourne un tableau de données d'un User
-     */
-    public function toArray(): array
-    {
-        $userData =  [];
-        //Crée un tableau de données à partir des attributs de l'objet User
-        foreach ($this as $key => $value) {
-            if ($key === 'grants' && is_array($value)) {
-                $value = implode(',', $value);
-            }
-            $userData[$key] = $value;
-        }
-        return $userData;
-    }
+ * Méthode pour convertir un Objet User en tableau de données
+ * @return array retourne un tableau de données d'un User
+ */
+    // public function toArray(): array
+    // {
+    //     $userData =  [];
+    //     //Crée un tableau de données à partir des attributs de l'objet User
+    //     foreach ($this as $key => $value) {
+    //         if ($key === 'grants' && is_array($value)) {
+    //             $value = implode(',', $value);
+    //         }
+    //         $userData[$key] = $value;
+    //     }
+    //     return $userData;
+    // }
 }
